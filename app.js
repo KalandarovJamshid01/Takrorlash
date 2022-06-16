@@ -1,41 +1,21 @@
 const express = require('express');
-const fs = require('fs');
 const app = express();
 
+const morgan = require('morgan');
+const tourRouter = require('./routes/tourRouter');
+app.use(morgan('dev'));
 app.use(express.json());
-const tours = JSON.parse(
-  fs.readFileSync('./dev-data/data/tours-simple.json', 'utf-8')
-);
 
-app.get('/api/v1/tours', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    results: tours.length,
-    data: tours,
-  });
-});
-app.post('/api/v1/tours', (req, res) => {
-  const data = req.body;
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, data);
-  tours.push(newTour);
-  fs.writeFile(
-    './dev-data/data/tours-simple.json',
-    JSON.stringify(tours),
-    (err) => {
-      res.status(201).json({
-        status: 'success',
-        result: tours.length,
-        data: newTour,
-      });
-    }
-  );
-});
+app.use('/api/v1/tours', tourRouter);
 
-app.get('/api/v1/students/:id', (req, res) => {
-  const param = req.params.id;
-});
+// app.get('/api/v1/tours', getAllTours);
+// app.post('/api/v1/tours', addTour);
 
+// app.get('/api/v1/tours/:id', getTourbyId);
+
+// app.patch('/api/v1/tours/:id', updateTour);
+
+// app.delete('/api/v1/tours/:id', deleteTour);
 app.listen(8000, () => {
   console.log('server is working');
 });
