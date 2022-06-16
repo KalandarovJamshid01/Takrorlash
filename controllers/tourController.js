@@ -12,6 +12,15 @@ const checkID = (req, res, next, val) => {
   }
 };
 
+const checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(200).json({
+      status: 'fail',
+      message: 'Name va priceni kirit',
+    });
+  }
+  next();
+};
 const getAllTours = function (req, res) {
   res.status(200).json({
     status: 'success',
@@ -88,4 +97,5 @@ module.exports = {
   deleteTour,
   addTour,
   checkID,
+  checkBody,
 };
