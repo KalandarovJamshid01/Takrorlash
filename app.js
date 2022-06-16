@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 
+
+
 const morgan = require('morgan');
 const tourRouter = require('./routes/tourRouter');
 const userRouter = require('./routes/userRouter');
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static('public'));
+
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
@@ -18,6 +21,5 @@ app.use('/api/v1/users', userRouter);
 // app.patch('/api/v1/tours/:id', updateTour);
 
 // app.delete('/api/v1/tours/:id', deleteTour);
-app.listen(8000, () => {
-  console.log('server is working');
-});
+
+module.exports = app;
