@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const tourSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: [true, 'Name is requires'] },
+  name: { type: String, required: [true, 'Name is requires'] },
   duration: { type: Number, required: true },
   maxGroupSiza: {
     type: Number,
