@@ -46,6 +46,14 @@ const getTourbyId = async (req, res) => {
 };
 const updateTour = async (req, res) => {
   try {
+    //Basic Filter
+    // First method
+    const filter = await Tour.find({
+      duration: 5,
+      difficulty: easy,
+      price: 1497,
+    });
+
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
